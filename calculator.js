@@ -1,5 +1,5 @@
-let firstNumber = null;
-let secondNumber = null;
+let num1 = null;
+let num2 = null;
 let operator = null;
 
 function add(a, b) {
@@ -35,9 +35,9 @@ function operate(operator, num1, num2) {
 
 const display = document.querySelector("#display");
 const numberBtns = document.querySelectorAll(".number");
+const operatorBtns = document.querySelectorAll(".operator");
 const clearBtn = document.querySelector("#clear");
-
-const addBtn = document.querySelector("#add");
+const equalsBtn = document.querySelector("#equals");
 
 
 display.textContent = "0";
@@ -45,7 +45,7 @@ display.textContent = "0";
 function appendNumber(number) {
     const maxLength = 10;
 
-    if (display.textContent === "0") {
+    if (display.textContent === "0" || num1 === Number(display.textContent)) {
         display.textContent = number;
     } else if (display.textContent.length < maxLength) {
         display.textContent += number;
@@ -58,7 +58,18 @@ numberBtns.forEach(button => {
     });
 });
 
-
 clearBtn.addEventListener("click", () => {
     display.textContent = "0";
+});
+
+operatorBtns.forEach(button => {
+    button.addEventListener("click", () => {
+        num1 = Number(display.textContent);
+        operator = button.textContent;
+    });
+});
+
+equalsBtn.addEventListener("click", () => {
+    num2 = Number(display.textContent);
+    display.textContent = operate(operator, num1, num2);
 });
