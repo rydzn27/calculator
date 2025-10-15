@@ -38,7 +38,15 @@ function roundResult(result) {
         return Math.round(result * 100000) / 100000;
     }
 
+function showResult(result) {
+    display.textContent = result;
 
+    if (result === "It's over 9000!!!") {
+        vegetaGif.classList.add("show");
+    } else {
+        vegetaGif.classList.remove("show");
+    }
+}
 
 const display = document.querySelector("#display");
 const numberBtns = document.querySelectorAll(".number");
@@ -47,6 +55,7 @@ const clearBtn = document.querySelector("#clear");
 const equalsBtn = document.querySelector("#equals");
 const dotBtn = document.querySelector("#dot");
 const backSpaceBtn = document.querySelector("#back-space");
+const vegetaGif = document.querySelector("#vegeta");
 
 display.textContent = "0";
 
@@ -73,6 +82,7 @@ clearBtn.addEventListener("click", () => {
     num2 = null;
     operator = null;
     resetDisplay = false;
+    vegetaGif.classList.remove("show");
 });
 
 operatorBtns.forEach(button => {
@@ -103,7 +113,7 @@ equalsBtn.addEventListener("click", () => {
     let result = operate(operator, num1, num2);
     
     if (typeof result === "string") {
-        display.textContent = result;
+        showResult("It's over 9000!!!");
     } else {
         result = roundResult(result);
         display.textContent = result;
@@ -142,4 +152,5 @@ backSpaceBtn.addEventListener("click", () => {
     if (display.textContent === "") {
         display.textContent = "0";
     }
-})
+});
+
