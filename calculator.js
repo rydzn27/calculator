@@ -45,7 +45,8 @@ const numberBtns = document.querySelectorAll(".number");
 const operatorBtns = document.querySelectorAll(".operator");
 const clearBtn = document.querySelector("#clear");
 const equalsBtn = document.querySelector("#equals");
-
+const dotBtn = document.querySelector("#dot");
+const backSpaceBtn = document.querySelector("#back-space");
 
 display.textContent = "0";
 
@@ -101,12 +102,44 @@ equalsBtn.addEventListener("click", () => {
 
     let result = operate(operator, num1, num2);
     
-    result = roundResult(result);
-
-    display.textContent = result;
+    if (typeof result === "string") {
+        display.textContent = result;
+    } else {
+        result = roundResult(result);
+        display.textContent = result;
+    }
 
     num1 = result;
     num2 = null;
     operator = null;
     resetDisplay = true;
 });
+
+dotBtn.addEventListener("click", () => {
+    if (resetDisplay) {
+        display.textContent = "0.";
+        resetDisplay = false;
+        return;
+    }
+
+    if (display.textContent.includes(".")) {
+        return;
+    }
+
+    display.textContent += ".";
+});
+
+backSpaceBtn.addEventListener("click", () => {
+
+    if (resetDisplay) {
+        display.textContent = "0";
+        resetDisplay = false;
+        return;
+    }
+
+    display.textContent = display.textContent.slice(0, -1);
+
+    if (display.textContent === "") {
+        display.textContent = "0";
+    }
+})
