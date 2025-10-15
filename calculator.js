@@ -93,7 +93,20 @@ operatorBtns.forEach(button => {
 });
 
 equalsBtn.addEventListener("click", () => {
+    if (num1 === null || operator === null) {
+        return;
+    }
+
     num2 = Number(display.textContent);
-    display.textContent = roundResult(operate(operator, num1, num2));
+
+    let result = operate(operator, num1, num2);
+    
+    result = roundResult(result);
+
+    display.textContent = result;
+
+    num1 = result;
+    num2 = null;
+    operator = null;
     resetDisplay = true;
 });
