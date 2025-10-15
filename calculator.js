@@ -34,6 +34,11 @@ function operate(operator, num1, num2) {
     }
 }
 
+function roundResult(result) {
+        return Math.round(result * 100000) / 100000;
+    }
+
+
 
 const display = document.querySelector("#display");
 const numberBtns = document.querySelectorAll(".number");
@@ -73,8 +78,8 @@ operatorBtns.forEach(button => {
     button.addEventListener("click", () => {
         if (operator !== null && num1 !== null && !resetDisplay) {
             num2 = Number(display.textContent);
-            display.textContent = operate(operator, num1, num2);
-            num1 = Number(display.textContent = operate(operator, num1, num2));
+            display.textContent = roundResult(operate(operator, num1, num2));
+            num1 = Number(display.textContent = roundResult(operate(operator, num1, num2)));
             
         }
 
@@ -89,6 +94,6 @@ operatorBtns.forEach(button => {
 
 equalsBtn.addEventListener("click", () => {
     num2 = Number(display.textContent);
-    display.textContent = operate(operator, num1, num2);
+    display.textContent = roundResult(operate(operator, num1, num2));
     resetDisplay = true;
 });
