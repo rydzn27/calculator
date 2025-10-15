@@ -1,6 +1,7 @@
 let num1 = null;
 let num2 = null;
 let operator = null;
+let resetDisplay = false;
 
 function add(a, b) {
     return a + b;
@@ -33,6 +34,7 @@ function operate(operator, num1, num2) {
     }
 }
 
+
 const display = document.querySelector("#display");
 const numberBtns = document.querySelectorAll(".number");
 const operatorBtns = document.querySelectorAll(".operator");
@@ -45,8 +47,9 @@ display.textContent = "0";
 function appendNumber(number) {
     const maxLength = 10;
 
-    if (display.textContent === "0" || num1 === Number(display.textContent)) {
+    if (display.textContent === "0" || resetDisplay) {
         display.textContent = number;
+        resetDisplay = false;
     } else if (display.textContent.length < maxLength) {
         display.textContent += number;
     }
@@ -60,16 +63,32 @@ numberBtns.forEach(button => {
 
 clearBtn.addEventListener("click", () => {
     display.textContent = "0";
+    num1 = null;
+    num2 = null;
+    operator = null;
+    resetDisplay = false;
 });
 
 operatorBtns.forEach(button => {
     button.addEventListener("click", () => {
-        num1 = Number(display.textContent);
+        if (operator !== null && num1 !== null && !resetDisplay) {
+            num2 = Number(display.textContent);
+            display.textContent = operate(operator, num1, num2);
+            num1 = Number(display.textContent = operate(operator, num1, num2));
+            
+        }
+
         operator = button.textContent;
+        if (num1 === null) {
+            num1 = Number(display.textContent);
+        }
+        
+        resetDisplay = true;
     });
 });
 
 equalsBtn.addEventListener("click", () => {
     num2 = Number(display.textContent);
     display.textContent = operate(operator, num1, num2);
+    resetDisplay = true;
 });
