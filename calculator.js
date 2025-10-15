@@ -57,6 +57,42 @@ const dotBtn = document.querySelector("#dot");
 const backSpaceBtn = document.querySelector("#back-space");
 const vegetaGif = document.querySelector("#vegeta");
 
+document.addEventListener("keydown", (e) => {
+    // Number 0-9
+    if (e.key >= "0" && e.key <= "9") {
+        appendNumber(e.key);
+    }
+    // Operators
+    if (e.key === "+") {
+        document.querySelector("#add").click();
+    } else if (e.key === "-") {
+        document.querySelector("#subtract").click();
+    } else if (e.key === "*") {
+        document.querySelector("#multiply").click();
+    } else if (e.key === "/") {
+        e.preventDefault();
+        document.querySelector("#divide").click();
+    }
+    // Equals
+    if (e.key === "Enter" || e.key === "=") {
+        e.preventDefault();
+        equalsBtn.click();
+    }
+    // Clear
+    if (e.key === "Escape" || e.key === "c") {
+        clearBtn.click();
+    }
+    // Backspace
+    if (e.key === "Backspace") {
+        e.preventDefault();
+        backSpaceBtn.click();
+    }
+    // dot
+    if (e.key === ".") {
+        dotBtn.click();
+    }
+});
+
 display.textContent = "0";
 
 function appendNumber(number) {
@@ -119,7 +155,7 @@ equalsBtn.addEventListener("click", () => {
         display.textContent = result;
     }
 
-    num1 = result;
+    num1 = null;
     num2 = null;
     operator = null;
     resetDisplay = true;
